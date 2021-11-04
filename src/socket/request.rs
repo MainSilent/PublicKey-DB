@@ -4,6 +4,7 @@ pub enum Operation {
     Remove
 }
 
+#[allow(dead_code)]
 pub struct Request {
     op: Operation,
     value: String
