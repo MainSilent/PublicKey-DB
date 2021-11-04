@@ -1,5 +1,6 @@
 use server::Server;
 
+mod socket;
 mod server;
 
 fn main() {

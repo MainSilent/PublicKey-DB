@@ -1,7 +1,8 @@
-use std::io::BufRead;
 use std::fs;
-use std::io::{Write, BufReader};
+use std::io::{Write, BufRead, BufReader};
 use std::os::unix::net::UnixListener;
+
+use crate::socket::Request;
 
 pub struct Server {
     path: String
@@ -26,15 +27,7 @@ impl Server {
                     let mut buffer = BufReader::new(&stream);
                     buffer.read_line(&mut response).expect("Failed to read");
 
-                    loop {
-                        match stream.write_all(b"&mut response\n") {
-                            Ok(v) => v,
-                            Err(_e) => {
-                                eprintln!("Failed to write, client disconnected");
-                                break
-                            }
-                        }
-                    }
+                    let request = Request::new("dsf".to_string());
                 }
                 Err(err) => {
                     println!("Failed to connect: {}", err);                    
