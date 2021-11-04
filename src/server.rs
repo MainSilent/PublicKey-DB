@@ -35,16 +35,16 @@ impl Server {
         println!("Client connected");
 
         loop {
-            let mut req = String::new();
+            let mut request = String::new();
             let mut buffer = BufReader::new(stream);
-            buffer.read_line(&mut req).expect("Failed to read");
+            buffer.read_line(&mut request).expect("Failed to read");
             
-            if req == "" {
+            if request == "" {
                 println!("Connection closed");
                 break
             }
 
-            let request = Request::new(&req);
+            let request = Request::new(&request).unwrap();
         }
     }
 }
