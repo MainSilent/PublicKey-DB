@@ -1,6 +1,7 @@
 use std::fs;
+use std::thread;
 use std::io::{Write, BufRead, BufReader};
-use std::os::unix::net::UnixListener;
+use std::os::unix::net::{UnixStream, UnixListener};
 
 use crate::socket::Request;
 
@@ -22,18 +23,15 @@ impl Server {
 
         for stream in listener.incoming() {
             match stream {
-                Ok(mut stream) => {
-                    let mut response = String::new();
-                    let mut buffer = BufReader::new(&stream);
-                    buffer.read_line(&mut response).expect("Failed to read");
-
-                    let request = Request::new("dsf".to_string());
-                }
-                Err(err) => {
-                    println!("Failed to connect: {}", err);                    
-                    break;
-                }
+                Ok(stream) => {
+                    thread::spawn(|| Self::connect(stream));
+                },
+                Err(e) => eprintln!("Client failed to connect: {}", e)
             }
         }
+    }
+
+    pub fn connect(mut stream: UnixStream) {
+
     }
 }
