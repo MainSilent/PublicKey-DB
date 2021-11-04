@@ -1,13 +1,15 @@
+#[derive(Debug)]
 pub enum Operation {
     Add,
     Find,
     Remove
 }
 
+#[derive(Debug)]
 #[allow(dead_code)]
 pub struct Request {
-    op: Operation,
-    value: String
+    pub op: Operation,
+    pub value: String
 }
 
 impl Request {

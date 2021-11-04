@@ -53,7 +53,7 @@ impl Server {
                 }
             };
 
-            
+            println!("{:?}", request);
         }
     }
 }
