@@ -1,3 +1,9 @@
+use server::Server;
+
+mod server;
+
 fn main() {
-    println!("Hello, world!");
+    let socket_path = "/tmp/pubdb";
+    let server = Server::new(socket_path.to_string());
+    server.run();
 }
