@@ -3,6 +3,7 @@ use std::thread;
 use std::io::{Write, BufRead, BufReader};
 use std::os::unix::net::{UnixStream, UnixListener};
 
+use crate::storage;
 use crate::socket::Request;
 
 pub struct Server {
