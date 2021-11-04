@@ -24,26 +24,27 @@ impl Server {
         for stream in listener.incoming() {
             match stream {
                 Ok(stream) => {
-                    thread::spawn(|| Self::connect(stream));
+                    thread::spawn(move || Self::connect(&stream));
                 },
                 Err(e) => eprintln!("Client failed to connect: {}", e)
             }
         }
     }
 
-    pub fn connect(mut stream: UnixStream) {
+    pub fn connect(mut stream: &UnixStream) {
         println!("Client connected");
 
         loop {
             let mut req = String::new();
-            let mut buffer = BufReader::new(&stream);
+            let mut buffer = BufReader::new(stream);
             buffer.read_line(&mut req).expect("Failed to read");
             
             if req == "" {
                 println!("Connection closed");
                 break
             }
-            println!("{:?}", req);
+
+            let request = Request::new(&req);
         }
     }
 }

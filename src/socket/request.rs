@@ -10,7 +10,7 @@ pub struct Request {
 }
 
 impl Request {
-    pub fn new(req: String) -> Self {
+    pub fn new(req: &String) -> Self {
         Self {
             op: Operation::Add,
             value: "sdf".to_string()
