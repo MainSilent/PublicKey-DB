@@ -44,7 +44,16 @@ impl Server {
                 break
             }
 
-            let request = Request::new(&request).unwrap();
+            let request = match Request::new(&request) {
+                Ok(request) => request,
+                Err(e) => {
+                    stream.write_all(e.as_bytes()).ok();
+                    stream.write(b"\n").ok();
+                    continue
+                }
+            };
+
+            
         }
     }
 }
