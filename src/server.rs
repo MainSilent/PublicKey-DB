@@ -32,6 +32,18 @@ impl Server {
     }
 
     pub fn connect(mut stream: UnixStream) {
+        println!("Client connected");
 
+        loop {
+            let mut req = String::new();
+            let mut buffer = BufReader::new(&stream);
+            buffer.read_line(&mut req).expect("Failed to read");
+            
+            if req == "" {
+                println!("Connection closed");
+                break
+            }
+            println!("{:?}", req);
+        }
     }
 }
