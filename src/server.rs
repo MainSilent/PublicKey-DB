@@ -21,12 +21,20 @@ impl Server {
 
         for stream in listener.incoming() {
             match stream {
-                Ok(stream) => {
+                Ok(mut stream) => {
                     let mut response = String::new();
-                    let mut stream = BufReader::new(stream);
-                    stream.read_line(&mut response).unwrap();
+                    let mut buffer = BufReader::new(&stream);
+                    buffer.read_line(&mut response).expect("Failed to read");
 
-                    println!("{}", response);
+                    loop {
+                        match stream.write_all(b"&mut response\n") {
+                            Ok(v) => v,
+                            Err(_e) => {
+                                eprintln!("Failed to write, client disconnected");
+                                break
+                            }
+                        }
+                    }
                 }
                 Err(err) => {
                     println!("Failed to connect: {}", err);                    
