@@ -49,19 +49,15 @@ impl Server {
                 Ok(request) => request,
                 Err(e) => {
                     stream.write_all(e.as_bytes()).ok();
-                    stream.write(b"\n").ok();
                     continue
                 }
             };
-
             
             stream.write_all(match request.op {
                 Operation::Add => Storage::add(&request.value),
                 Operation::Find => Storage::find(&request.value)
             })
             .expect("Failed to send the result");
-
-            stream.write(b"\n").ok();
         }
     }
 }
