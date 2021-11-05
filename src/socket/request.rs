@@ -1,7 +1,6 @@
 pub enum Operation {
     Add,
-    Find,
-    Remove
+    Find
 }
 
 #[allow(dead_code)]
@@ -21,7 +20,6 @@ impl Request {
             op: match request[0] {
                 "add" => Operation::Add,
                 "find" => Operation::Find,
-                "remove" => Operation::Remove,
                 _ => {
                     return Err("Invalid operation");
                 }
