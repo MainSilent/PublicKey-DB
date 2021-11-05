@@ -1,3 +1,3 @@
 pub fn find(value: &str) -> &[u8] {
-    "".as_bytes()
+    value.as_bytes()
 }
