@@ -30,6 +30,8 @@ Configure `config.json` by adding the storage path and socket path
 
 ## How to use
 
+Connect to `/tmp/pubdb.sock`
+
 `"add {key}"` | Add a new public key (x-value 64 char length)
 
 `"find {key}"` | Search if a public key exists (x-value 64 char length)
