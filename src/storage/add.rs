@@ -10,7 +10,7 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
         return Ok("The public key must be 64 bytes long".as_bytes())
     }
 
-    let size_limit = 1; // size in MB
+    let size_limit = 100; // size in MB
     let mut last_index: u8;
     let path = config("storage");
     let last_index_file = format!("{}/last_index", path);
