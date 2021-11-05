@@ -1,6 +1,6 @@
 # ECDSA PublicKey Database
 
-Fast and Efficient made specifically for ecdsa public keys to test different brute force attacks
+Fast and Efficient database made specifically for ecdsa public keys to test different brute force attacks
 
 
 ### Why not using other databases or a simple file?
