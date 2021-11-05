@@ -1,4 +1,3 @@
 {
-    "socket": "/tmp/pubdb.sock",
     "storage": "/home/main/pubkeys/"
 }
