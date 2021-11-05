@@ -1,6 +1,6 @@
 # ECDSA PublicKey Database
 
-Fast and Efficient made specifically for ecdsa public keys to test different brute force attacks
+Fast and Efficient database made specifically for ecdsa public keys to test different brute force attacks
 
 
 ### Why not using other databases or a simple file?
@@ -32,6 +32,6 @@ Configure `config.json` by adding the storage path and socket path
 
 `"add {key}"` | Add a new public key (x-value 64 char length)
 
-`"find {key}"` | Search if a public key exists public key (x-value 64 char length)
+`"find {key}"` | Search if a public key exists (x-value 64 char length)
 
 All the commands will return `1` in success or an error in failure
