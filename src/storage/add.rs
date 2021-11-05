@@ -2,7 +2,7 @@ use std::fs::OpenOptions;
 use std::io::prelude::*;
 
 pub fn add(value: &str) -> &[u8] {
-    let path = "/home/silent/projects/data.pdb";
+    let path = "/media/silent/pubkeys/data.pdb";
 
     let mut file = OpenOptions::new()
         .write(true)
