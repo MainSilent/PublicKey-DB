@@ -23,6 +23,7 @@ Configure `config.json` by adding the storage path and socket path
 
 ```json
 {
+    "socket": "/tmp/pubdb.sock",
     "storage": "/home/main/pubkeys/"
 }
 ```
