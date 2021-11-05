@@ -1,17 +1,23 @@
 use glob::glob;
 use crate::config::config;
 
-pub fn add(value: &str) -> &[u8] {
-    let size_limit = 50; // size in MB
+pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
     let path = config("storage");
 
-    let files = glob(&(path+"/*.pdb")).expect("Failed to read the pdb file");
+    let files = glob(&(path.to_string()+"/*.pdb")).expect("Failed to read the pdb file");
     
-    for entry in files {
-        if let Ok(path) = entry {
-            println!("{:?}", path.display())
-        }
+    if files.count() == 0 {
+        add_to_file(value, &format!("{}/1.pdb", path));
+    }
+    else {
+        add_to_file(value, &format!("{}/1.pdb", path));
     }
 
-    "1".as_bytes()
+    Ok("1".as_bytes())
+}
+
+fn add_to_file(value: &str, filepath: &str) {
+    let size_limit = 50; // size in MB
+
+
 }
