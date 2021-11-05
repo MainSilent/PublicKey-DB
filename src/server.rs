@@ -4,7 +4,7 @@ use std::io::{Write, BufRead, BufReader};
 use std::os::unix::net::{UnixStream, UnixListener};
 
 use crate::storage as Storage;
-use crate::socket::Request;
+use crate::socket::{Request, Operation};
 
 pub struct Server {
     path: String
@@ -55,6 +55,14 @@ impl Server {
             };
 
             
+            stream.write_all(match request.op {
+                Operation::Add => Storage::add(&request.value),
+                Operation::Find => Storage::find(&request.value),
+                Operation::Remove => Storage::remove(&request.value)
+            })
+            .expect("Failed to send the result");
+
+            stream.write(b"\n").ok();
         }
     }
 }
