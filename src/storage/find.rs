@@ -21,7 +21,11 @@ pub fn find(value: &str) -> &[u8] {
         let file = fs::read(path).unwrap();
         let keys: Vec<&[u8]> = file.chunks(32).collect();
         
+        match keys.binary_search(&query.as_ref()) {
+            Ok(_i) => return "1".as_bytes(),
+            Err(_e) => return "0".as_bytes()
+        };
     }
 
-    "1".as_bytes()
+    "0".as_bytes()
 }

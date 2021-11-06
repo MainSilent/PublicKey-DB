@@ -9,7 +9,7 @@ Fast and Efficient database made specifically for ecdsa public keys to test diff
 
 2- The database files only contain the public keys and not any metadata (except the index file), This is why you can store `31250` public keys for only 1MB!
 
-3- By using binary search in sorted data, You will get the result much faster (not implemented)
+3- By using binary search in sorted data, You will get the result much faster
 
 ## Build
 
