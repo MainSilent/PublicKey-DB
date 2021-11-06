@@ -42,6 +42,13 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
 fn add_to_file(value: &str, path: &str) {
     let number = hex::decode(value).unwrap();
 
+    // Sort the data
+    let file = fs::read(path).unwrap();
+    let mut keys: Vec<&[u8]> = file.chunks(32).collect();
+    keys.push(&number);
+    keys.sort();
+
+    // Add to file
     let mut file = OpenOptions::new()
         .write(true)
         .create(true)
@@ -49,17 +56,5 @@ fn add_to_file(value: &str, path: &str) {
         .open(path)
         .expect("Failed to open database file");
 
-    file.write_all(&number).expect("Failed to append to database");
-
-    sort_file(path);
-}
-
-fn sort_file(path: &str) {
-    let file = fs::read(path).unwrap();
-
-    for raw_key in file.chunks(32) {
-        let key: Vec<u16> = raw_key.iter().map(|x| u16::from(*x)).collect();
-        let key_sum: u16 = key.iter().sum();
-        println!("{:?}", key_sum);
-    }
+    file.write_all(&keys).expect("Failed to append to database");
 }
