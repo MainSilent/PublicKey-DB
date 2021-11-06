@@ -1,3 +1,3 @@
-pub fn sort() -> Result<&[u8], std::io::Error> {
-    Ok(b"value")
+pub fn sort() -> &'static [u8] {
+    "value".as_bytes()
 }

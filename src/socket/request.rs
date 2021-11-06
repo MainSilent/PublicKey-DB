@@ -20,6 +20,7 @@ impl Request {
         Ok(Self {
             op: match request[0] {
                 "add" => Operation::Add,
+                "sort" => Operation::Sort,
                 "find" => Operation::Find,
                 _ => {
                     return Err("Invalid operation");

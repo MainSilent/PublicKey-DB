@@ -5,9 +5,9 @@ use fs::OpenOptions;
 use std::io::prelude::*;
 use crate::config::config;
 
-pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
+pub fn add(value: &str) -> &[u8] {
     if value.len() != 64 {
-        return Ok("The public key must be 64 bytes long".as_bytes())
+        return "The public key must be 64 bytes long".as_bytes()
     }
 
     let size_limit = 100; // size in MB
@@ -36,7 +36,7 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
 
     fs::write(&last_index_file, last_index.to_string())
         .expect("Failed to write last index file");
-    Ok("1".as_bytes())
+    "1".as_bytes()
 }
 
 fn sort_keys(value: &str, path: &str) {
