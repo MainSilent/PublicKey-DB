@@ -13,9 +13,6 @@ pub struct Request {
 impl Request {
     pub fn new(raw_request: &String) -> Result<Self, &str> {
         let request: Vec<&str> = raw_request.split_ascii_whitespace().collect();
-        if request.len() != 2 {
-            return Err("Invalid number of parameters");
-        }
 
         Ok(Self {
             op: match request[0] {
@@ -26,7 +23,10 @@ impl Request {
                     return Err("Invalid operation");
                 }
             },
-            value: request[1].to_string()
+            value: match request.get(1) {
+                Some(value) => value.to_string(),
+                None => "".to_string()
+            }
         })
     }
 }
