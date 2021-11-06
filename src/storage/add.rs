@@ -27,7 +27,7 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
         let last_file_size = fs::metadata(&last_file).unwrap().len();
 
         // If exceeds the file size limit create a new file
-        if last_file_size > (size_limit * 1000000) {
+        if last_file_size >= (size_limit * 1000000) {
             last_index += 1;
         }
 
@@ -50,4 +50,16 @@ fn add_to_file(value: &str, path: &str) {
         .expect("Failed to open database file");
 
     file.write_all(&number).expect("Failed to append to database");
+
+    sort_file(path);
+}
+
+fn sort_file(path: &str) {
+    let file = fs::read(path).unwrap();
+
+    for raw_key in file.chunks(32) {
+        let key: Vec<u16> = raw_key.iter().map(|x| u16::from(*x)).collect();
+        let key_sum: u16 = key.iter().sum();
+        println!("{:?}", key_sum);
+    }
 }
