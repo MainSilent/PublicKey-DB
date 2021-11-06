@@ -23,7 +23,7 @@ pub fn find(value: &str) -> &[u8] {
         
         match keys.binary_search(&query.as_ref()) {
             Ok(_i) => return "1".as_bytes(),
-            Err(_e) => return "0".as_bytes()
+            Err(_e) => continue
         };
     }
 
