@@ -7,7 +7,7 @@ Fast and Efficient database made specifically for ecdsa public keys to test diff
 
 1- It uses unix socket instead of TCP/IP
 
-2- Since keys are just a number when adding it will sort them automatically
+2- Since keys are just a number when adding it will sort them automatically, This is why adding is slower than other methods
 
 3- By using binary search in sorted data, You will get the result much faster
 
