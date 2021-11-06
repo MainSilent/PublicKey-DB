@@ -1,4 +1,4 @@
-# ECDSA PublicKey Database
+# ECDSA PublicKey Database (Beta)
 
 Fast and Efficient database made specifically for ecdsa public keys to test different brute force attacks
 
