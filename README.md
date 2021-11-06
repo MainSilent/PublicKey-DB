@@ -7,7 +7,7 @@ Fast and Efficient database made specifically for ecdsa public keys to test diff
 
 1- It uses unix socket instead of TCP/IP
 
-2- Since keys are just a number when adding it will sort them automatically, This is why adding is slower than other methods
+2- The database files only contain the public keys and not any metadata (except the index file), This is why you can store `31250` public keys for only 1MB.
 
 3- By using binary search in sorted data, You will get the result much faster
 
@@ -34,6 +34,12 @@ Connect to `/tmp/pubdb.sock`
 
 `"add {key}"` | Add a new public key (x-value 64 char length)
 
+`"sort"` | Sort added data
+
 `"find {key}"` | Search if a public key exists (x-value 64 char length)
 
-All the commands will return `1` in success or an error in failure
+All the commands will return `1` in success or an error in failure.
+
+To keep the adding operation as fast as possible, The data won't be stored when adding.
+
+Make sure to use `sort` command before searching for a public key.
