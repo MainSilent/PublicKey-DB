@@ -40,7 +40,7 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
 }
 
 fn add_to_file(value: &str, path: &str) {
-    let mut raw_keys: Vec<&u8> = Vec::new();
+    let raw_keys: &[u8];
     let new_key = hex::decode(value).unwrap();
 
     // Sort the data
@@ -52,10 +52,9 @@ fn add_to_file(value: &str, path: &str) {
         
         for key in keys {
             for byte in key {
-                raw_keys.push(byte);
+               raw_keys =  byte;
             }
         }
-        println!("{:?}", raw_keys)
     }
     
     // Add to file
@@ -66,5 +65,5 @@ fn add_to_file(value: &str, path: &str) {
         .open(path)
         .expect("Failed to open database file");
 
-    //file.write_all(raw_keys[..]).expect("Failed to append to database");
+    file.write_all(raw_keys).expect("Failed to append to database");
 }
