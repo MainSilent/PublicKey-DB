@@ -1,5 +1,6 @@
 pub enum Operation {
     Add,
+    Sort,
     Find
 }
 

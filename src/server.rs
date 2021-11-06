@@ -55,6 +55,7 @@ impl Server {
             
             stream.write_all(match request.op {
                 Operation::Add => Storage::add(&request.value).unwrap_or("0".as_bytes()),
+                Operation::Sort => Storage::sort().unwrap_or("0".as_bytes()),
                 Operation::Find => Storage::find(&request.value).unwrap_or("0".as_bytes())
             })
             .expect("Failed to send the result");
