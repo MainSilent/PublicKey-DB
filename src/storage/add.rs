@@ -40,7 +40,7 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
 }
 
 fn sort_keys(value: &str, path: &str) {
-    let mut new_key = hex::decode(value).unwrap();
+    let new_key = hex::decode(value).unwrap();
 
     // Sort the data
     if fs::metadata(path).is_ok() {
