@@ -40,19 +40,23 @@ pub fn add(value: &str) -> Result<&[u8], std::io::Error> {
 }
 
 fn sort_keys(value: &str, path: &str) {
-    let mut new_keys = hex::decode(value).unwrap();
+    let mut new_key = hex::decode(value).unwrap();
 
     // Sort the data
     if fs::metadata(path).is_ok() {
         let file = fs::read(path).unwrap();
         let mut keys: Vec<&[u8]> = file.chunks(32).collect();
-        keys.push(&new_keys);
+        keys.push(&new_key);
         keys.sort();
         
-        println!("{:?}", keys);
-        new_keys = [8];
-    } else {
+        let new_keys = keys.iter()
+            .flat_map(|arr| arr.iter())
+            .cloned()
+            .collect::<Vec<u8>>();
+
         add_to_file(&new_keys, path);
+    } else {
+        add_to_file(&new_key, path);
     }
 }
 
@@ -60,7 +64,6 @@ fn add_to_file(new_keys: &[u8], path: &str) {
     let mut file = OpenOptions::new()
         .write(true)
         .create(true)
-        .append(true)
         .open(path)
         .expect("Failed to open database file");
 
