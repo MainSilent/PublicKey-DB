@@ -1,5 +1,6 @@
 use std::fs;
 use glob::glob;
+use std::io::Write;
 use fs::OpenOptions;
 use crate::config::config;
 
@@ -14,8 +15,8 @@ pub fn sort() -> &'static [u8] {
         for i in 1..last_index {
             let path = format!("{}/{}.pdb", storage_path, i);
 
-            if fs::metadata(path).is_ok() {
-                let file = fs::read(path).unwrap();
+            if fs::metadata(path.to_owned()).is_ok() {
+                let file = fs::read(path.to_owned()).unwrap();
                 let mut keys: Vec<&[u8]> = file.chunks(32).collect();
                 keys.sort();
                 
@@ -30,7 +31,7 @@ pub fn sort() -> &'static [u8] {
                     .open(path)
                     .expect("Failed to open database file");
             
-                file.write_all(&new_key).expect("Failed to append to database");
+                file.write_all(&new_keys).expect("Failed to append to database");
             }
         }
     }
